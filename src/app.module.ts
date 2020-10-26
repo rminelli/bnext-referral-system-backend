@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { HttpModule, Logger, Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
@@ -12,6 +12,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
     ContactsModule,
     ConfigModule.forRoot(),
     TypeOrmModule.forRoot(),
+    HttpModule,
+    Logger,
   ],
   controllers: [AppController],
   providers: [AppService],

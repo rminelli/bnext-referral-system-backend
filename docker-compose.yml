@@ -15,5 +15,12 @@ services:
       - data:/var/lib/mysql
     ports:
       - 3306:3306
+  bnext-referral-backend-server:
+    build: .
+    restart: always
+    depends_on:
+      - referral-db
+    ports:
+      - "${PORT}:${PORT}"
 volumes:
   data:

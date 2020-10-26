@@ -1,10 +1,17 @@
 import { IsMobilePhone, IsNotEmpty } from 'class-validator';
+import { ApiProperty } from '@nestjs/swagger';
 
 export class CreateUserDto {
+  @ApiProperty()
   @IsNotEmpty()
-  readonly userName: string;
+  readonly name: string;
 
+  @ApiProperty()
   @IsNotEmpty()
-  @IsMobilePhone('es-ES')
-  readonly phoneNumber: number;
+  readonly lastName: string;
+
+  @ApiProperty({ example: '+34617882211' })
+  @IsNotEmpty()
+  @IsMobilePhone()
+  readonly phone: number;
 }

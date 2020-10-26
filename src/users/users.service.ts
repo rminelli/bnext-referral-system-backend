@@ -9,33 +9,42 @@ import { User } from './entities/user.entity';
 export class UsersService {
   constructor(
     @InjectRepository(User)
-    private readonly userRepository: Repository<User>,
+    private readonly usersRepository: Repository<User>,
   ) {}
 
   async create(createUserDto: CreateUserDto): Promise<User> {
     try {
       const newUser = new User();
-      newUser.userName = createUserDto.userName;
-      newUser.phoneNumber = createUserDto.phoneNumber;
-      return await this.userRepository.save(newUser);
+      newUser.name = createUserDto.name;
+      newUser.lastName = createUserDto.lastName;
+      newUser.phone = createUserDto.phone;
+      return await this.usersRepository.save(newUser);
     } catch (error) {
       return error.message;
     }
   }
 
-  findAll() {
-    return `This action returns all users`;
+  async findOne(id: number) {
+    try {
+      return await this.usersRepository.findOne(id);
+    } catch (error) {
+      return error.message;
+    }
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} user`;
+  async update(id: number, updateUserDto: UpdateUserDto) {
+    try {
+      return await this.usersRepository.update(id, updateUserDto);
+    } catch (error) {
+      return error.message;
+    }
   }
 
-  update(id: number, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} user`;
+  async remove(id: number) {
+    try {
+      return await this.usersRepository.delete(id);
+    } catch (error) {
+      return error.message;
+    }
   }
 }

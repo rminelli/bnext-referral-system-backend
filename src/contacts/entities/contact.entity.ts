@@ -5,7 +5,7 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-
+import { ApiProperty } from '@nestjs/swagger';
 import { User } from '../../users/entities/user.entity';
 
 @Entity()
@@ -26,15 +26,24 @@ export class Contact {
   })
   updatedAt: Date;
 
-  @Column({ type: 'time' })
+  @ApiProperty()
+  @Column()
   contactName: string;
 
-  @Column()
-  phoneNumber: number;
+  @ApiProperty({ example: '+34617000001' })
+  @Column('bigint')
+  phone: number;
 
+  @Column({ default: false })
+  isValidPhoneNumer: boolean;
+
+  @Column('longtext')
+  phoneMetaData: string;
+
+  @ApiProperty()
   @ManyToOne(
     () => User,
     user => user.contacts,
   )
-  user: User;
+  user: number;
 }

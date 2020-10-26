@@ -4,9 +4,8 @@ import {
   Entity,
   OneToMany,
   PrimaryGeneratedColumn,
-  Unique,
 } from 'typeorm';
-
+import { ApiProperty } from '@nestjs/swagger';
 import { Contact } from '../../contacts/entities/contact.entity';
 
 @Entity()
@@ -27,12 +26,16 @@ export class User {
   })
   updatedAt: Date;
 
+  @ApiProperty()
   @Column()
-  @Unique(['userName'])
-  userName: string;
+  name: string;
+  @ApiProperty()
+  @Column()
+  lastName: string;
 
-  @Column()
-  phoneNumber: number;
+  @ApiProperty()
+  @Column('bigint')
+  phone: number;
 
   @OneToMany(
     () => Contact,
