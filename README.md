@@ -25,8 +25,16 @@ $ .env
 
 - http://localhost:3000/api
 
+## Running with Docker / Docker compose
+
 ```bash
-$ .env
+# development
+$ docker-compose up --build
+```
+
+```bash
+# development - Detached mode: Run containers in the background
+$ docker-compose up -d --build
 ```
 
 ## Running the app
@@ -40,18 +48,6 @@ $ npm run start:dev
 
 # production mode
 $ npm run start:prod
-```
-
-## Running with Docker / Docker compose
-
-```bash
-# development
-$ docker-compose up --build
-```
-
-```bash
-# development - Detached mode: Run containers in the background
-$ docker-compose up -d --build
 ```
 
 ## Test
