@@ -34,9 +34,11 @@ export class Contact {
   @Column('bigint')
   phone: number;
 
+  @ApiProperty()
   @Column({ default: false })
   isValidPhoneNumer: boolean;
 
+  @ApiProperty()
   @Column('longtext')
   phoneMetaData: string;
 

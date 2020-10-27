@@ -48,16 +48,20 @@ export class ContactsService {
       return error.message;
     }
   }
-  async commonContacts(
-    userId1: number,
-    userId2: number,
-  ): Promise<CreateContactDto> {
+  async commonContacts(userId1: number, userId2: number): Promise<Contact[]> {
     try {
-      return await getConnection().query(
-        `select distinct contact01.contactName ,contact01.phone,contact01.isValidPhoneNumer from contact contact01 join contact contact02
-          on contact01.phone = contact02.phone 
-          where contact01.userId = ${userId1} and contact02.userId = ${userId2}`,
+      const results: Contact[] = await getConnection().query(
+        `select distinct 
+        contact01.contactName,
+        contact01.phone,
+        contact01.isValidPhoneNumer, 
+        contact01.phoneMetaData 
+            from contact contact01 join contact contact02
+        on contact01.phone = contact02.phone 
+        where contact01.userId = ${userId1} and contact02.userId = ${userId2}`,
       );
+
+      return results;
     } catch (error) {
       return error.message;
     }
