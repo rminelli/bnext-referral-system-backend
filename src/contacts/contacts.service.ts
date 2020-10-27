@@ -39,8 +39,7 @@ export class ContactsService {
 
   async findAll(userId: number) {
     try {
-      return await getConnection()
-        .getRepository(Contact)
+      return await this.contactRepository
         .createQueryBuilder('contacts')
         .where('contacts.user = :id', { id: userId })
         .getMany();
@@ -50,18 +49,14 @@ export class ContactsService {
   }
   async commonContacts(userId1: number, userId2: number): Promise<Contact[]> {
     try {
-      const results: Contact[] = await getConnection().query(
-        `select distinct 
-        contact01.contactName,
-        contact01.phone,
-        contact01.isValidPhoneNumer, 
-        contact01.phoneMetaData 
-            from contact contact01 join contact contact02
-        on contact01.phone = contact02.phone 
-        where contact01.userId = ${userId1} and contact02.userId = ${userId2}`,
-      );
-
-      return results;
+      return await this.contactRepository.query(`select distinct 
+      contact01.contactName,
+      contact01.phone,
+      contact01.isValidPhoneNumer, 
+      contact01.phoneMetaData 
+          from contact contact01 join contact contact02
+      on contact01.phone = contact02.phone 
+      where contact01.userId = ${userId1} and contact02.userId = ${userId2}`);
     } catch (error) {
       return error.message;
     }
